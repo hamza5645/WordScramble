@@ -82,6 +82,11 @@ struct ContentView: View {
             return
         }
         
+        guard checkRoot(word: answer) else {
+            wordError(title: "You can't enter the root word", message: "Be more creative 😁")
+            return
+        }
+        
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
@@ -130,6 +135,14 @@ struct ContentView: View {
     
     func checkThree(word: String) -> Bool {
         if newWord.count <= 2 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func checkRoot(word: String) -> Bool {
+        if newWord == rootWord {
             return false
         } else {
             return true
