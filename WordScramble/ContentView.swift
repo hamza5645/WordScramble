@@ -64,6 +64,11 @@ struct ContentView: View {
             return
         }
         
+        guard checkThree(word: answer) else {
+            wordError(title: "Word less than 3 letters", message: "Think bigger")
+            return
+        }
+        
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
@@ -109,12 +114,10 @@ struct ContentView: View {
     }
     
     func checkThree(word: String) -> Bool {
-        if usedWords.count >= 3 {
-            
-        } else {
-            return true
+        if usedWords.count <= 2 {
+            return false
         }
-        return false
+        return true
     }
     
     func wordError(title: String, message: String) {
