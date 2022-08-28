@@ -47,7 +47,7 @@ struct ContentView: View {
         }
         .overlay(alignment: .bottomTrailing) {
             Button {
-                //make the action to restart the game 
+                startGame()
             }label: {
                 Image(systemName: "play.fill")
                     .font(.system(size: 40))
@@ -93,6 +93,8 @@ struct ContentView: View {
             if let startWords = try? String(contentsOf: startWordsURL) {
                 let allWords = startWords.components(separatedBy: "\n")
                 rootWord = allWords.randomElement() ?? "silkworm"
+                usedWords = [String]()
+                newWord = ""
                 return
             }
         }
@@ -127,10 +129,11 @@ struct ContentView: View {
     }
     
     func checkThree(word: String) -> Bool {
-        if usedWords.count <= 2 {
+        if newWord.count <= 2 {
             return false
+        } else {
+            return true
         }
-        return true
     }
     
     func wordError(title: String, message: String) {
