@@ -18,30 +18,43 @@ struct ContentView: View {
     @State private var showingError = false
     
     var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    TextField("Enter your word", text: $newWord)
-                        .autocapitalization(.none)
-                }
-                
-                Section {
-                    ForEach(usedWords, id: \.self) { word in
-                        HStack {
-                            Image(systemName: "\(word.count).circle")
-                            Text(word)
+        VStack {
+            NavigationView {
+                List {
+                    Section {
+                        TextField("Enter your word", text: $newWord)
+                            .autocapitalization(.none)
+                    }
+                    
+                    Section {
+                        ForEach(usedWords, id: \.self) { word in
+                            HStack {
+                                Image(systemName: "\(word.count).circle")
+                                Text(word)
+                            }
                         }
                     }
                 }
+                .navigationBarTitle(rootWord, displayMode: .automatic)
+                .onSubmit(addNewWord)
+                .onAppear(perform: startGame)
+                .alert(errorTitle, isPresented: $showingError) {
+                    Button("OK", role: .cancel) { }
+                } message: {
+                    Text(errorMessage)
+                }
             }
-            .navigationBarTitle(rootWord, displayMode: .automatic)
-            .onSubmit(addNewWord)
-            .onAppear(perform: startGame)
-            .alert(errorTitle, isPresented: $showingError) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(errorMessage)
+        }
+        .overlay(alignment: .bottomTrailing) {
+            Button {
+                //make the action to restart the game 
+            }label: {
+                Image(systemName: "play.fill")
+                    .font(.system(size: 40))
+                    .foregroundColor(.primary)
+                
             }
+            .padding()
         }
     }
     
