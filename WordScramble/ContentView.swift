@@ -108,7 +108,14 @@ struct ContentView: View {
         return misspelledRange.location == NSNotFound
     }
     
-    
+    func checkThree(word: String) -> Bool {
+        if usedWords.count >= 3 {
+            
+        } else {
+            return true
+        }
+        return false
+    }
     
     func wordError(title: String, message: String) {
         errorTitle = title
