@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
+//    let allUsedWords = [String]
     
     var body: some View {
         VStack {
