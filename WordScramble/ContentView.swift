@@ -16,7 +16,15 @@ struct ContentView: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
-//    let allUsedWords = [String]
+    @State private var showScoreAlert = false
+    
+    var score: Int {
+            usedWords.reduce(0) { $0 + $1.count }
+        }
+    
+//    var score: [Int] {
+//           usedWords.map { $0.count }
+//    }
     
     var body: some View {
         VStack {
@@ -43,6 +51,22 @@ struct ContentView: View {
                     Button("OK", role: .cancel) { }
                 } message: {
                     Text(errorMessage)
+                }
+            }
+            .overlay(alignment: .bottomLeading) {
+                Button {
+                    showScoreAlert = true
+                }label: {
+                    Text("\(score)")
+                        .font(.system(size: 40))
+                        .padding()
+                        .foregroundColor(.primary)
+                }
+                .alert(isPresented: $showScoreAlert) {
+                    Alert(
+                        title: Text("This is your score"),
+                        message: Text("Score works by adding the number of all letters in all the words you got")
+                    )
                 }
             }
         }
@@ -101,6 +125,7 @@ struct ContentView: View {
                 rootWord = allWords.randomElement() ?? "silkworm"
                 usedWords = [String]()
                 newWord = ""
+//                score = [0]
                 return
             }
         }
