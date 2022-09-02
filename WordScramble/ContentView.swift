@@ -69,6 +69,7 @@ struct ContentView: View {
                     )
                 }
             }
+            .ignoresSafeArea(.keyboard)
         }
         .overlay(alignment: .bottomTrailing) {
             Button {
@@ -81,6 +82,7 @@ struct ContentView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     func addNewWord() {
